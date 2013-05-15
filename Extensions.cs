@@ -219,6 +219,16 @@ namespace ExtensionMethods
             }
             return true;
         }
+        
+        public static void Println(this string str)
+        {
+            System.Console.WriteLine(str);
+        }
+        public static void PrintlnAndPause(this string str)
+        {
+            System.Console.WriteLine(str);
+            System.Console.ReadKey();
+        }
     }
 
 }
