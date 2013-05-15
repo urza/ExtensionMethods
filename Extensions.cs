@@ -23,6 +23,31 @@ namespace ExtensionMethods
         {
             return item.HasValue ? item.Value.ToShortDateString() : string.Empty;
         }
+        
+         /// <summary>
+        /// Calculates age (at given date) form date of birth
+        /// </summary>
+        /// <param name="birthDate">Date of Birth</param>
+        /// <param name="ageAt">Date which to calculate age for</param>
+        /// <returns></returns>
+        public static int ToAge(this DateTime? birthDate, DateTime ageAt)
+        {
+            if (!birthDate.HasValue) return -1;
+
+            int age = ageAt.Year - birthDate.Value.Year;
+            if (ageAt.Month < birthDate.Value.Month || (ageAt.Month == birthDate.Value.Month && ageAt.Day < birthDate.Value.Day)) age--;
+            return age;
+        }
+
+        /// <summary>
+        /// Calculates age (now) from date of birth
+        /// </summary>
+        /// <param name="birthDate"></param>
+        /// <returns></returns>
+        public static int ToAge(this DateTime? birthDate)
+        {
+            return birthDate.ToAge(DateTime.Today);
+        }
     }
 
     public static class NullableExtensions
@@ -36,6 +61,17 @@ namespace ExtensionMethods
         {
             return item.HasValue ? item.ToString() : string.Empty;
         }
+        
+        /// <summary>
+        /// Returns value of nullable double as string (formated according to parameter) ot empty string if the value is null.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static String double_ToStringOrEmpty(this double? item, string format)
+        {
+            return item.HasValue ? item.Value.ToString(format) : string.Empty;
+        }
+        
     }
 
     public static class BoolExtensions
@@ -80,6 +116,41 @@ namespace ExtensionMethods
         public static bool Between<T>(this T actual, T lower, T upper) where T : IComparable<T>
         {
             return actual.CompareTo(lower) >= 0 && actual.CompareTo(upper) < 0;
+        }
+        
+        /// <summary>
+        /// Checks whether objects in this collection are in incremental order. (Objects must be comparable)
+        /// </summary>
+        /// <typeparam name="T">Type of objects in collection. Must implement IComparable.</typeparam>
+        /// <param name="sequence">Collection of comparable elements.</param>
+        /// <param name="stronglyIncremental">Strongly incremental means that next object is greater than previous object. Not strongly incremental means that next object is greater or equal to previous object</param>
+        /// <returns>True if the elements in this collection are sorted incrementaly</returns>
+        public static bool IsIncremental<T>(this IEnumerable<T> sequence, bool stronglyIncremental = false) where T : IComparable<T>
+        {
+            using (var iter = sequence.GetEnumerator())
+     	    {
+ 		        if (iter.MoveNext())
+ 		        {
+ 		            var prevItem = iter.Current;
+ 		            while (iter.MoveNext())
+ 		            {
+ 		                var nextItem = iter.Current;
+                        if(stronglyIncremental)
+                        {
+                            if (prevItem.CompareTo(nextItem) >= 0)
+                                return false;
+                        }
+                        else
+                        {
+                            if (prevItem.CompareTo(nextItem) > 0 )
+                                return false;
+                        }
+ 		                prevItem = nextItem;
+ 		            }
+ 		        }
+ 		    }
+
+            return true; 
         }
     }
 
