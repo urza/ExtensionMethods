@@ -2,8 +2,9 @@ ExtensionMethods - collection of usable C# collection methods
 ================
 
 
-*IEnumerableExtensions*
-  * ForEach :  allows you to execute something for each of the items without any transformations/data manipulation 
+IEnumerableExtensions
+---------------------
+  * _ForEach_ :  allows you to execute something for each of the items without any transformations/data manipulation 
 
 *BoolExtensions*
   * In<T> : Returns true if value is contained in given collection
