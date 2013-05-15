@@ -204,6 +204,17 @@ namespace ExtensionMethods
             foreach (var item in @enum) mapFunction(item);
         }
     }
+    
+    public static class ListExtensions
+    {
+        ///Swap two items in List
+        static void Swap<T>(this List<T> list, int index1, int index2)
+        {
+            T temp = list[index1];
+            list[index1] = list[index2];
+            list[index2] = temp;
+        }
+    }
 
     public static class ListBoxExtensions
     {
