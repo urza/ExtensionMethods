@@ -32,6 +32,7 @@ ExtensionMethods - collection of usable C# collection methods
   * <b>IsDigitsOnly</b> : Checks if the string consists of digits only
   * <b>Println</b> : Write string to console (System.Console.WriteLine(str);)
   * <b>PrintlnAndPause</b> Write string to console and wait for ReadKey
+  * <b>GetFirstLine</b> First line from string
 
 *DirectoryInfoExtensions*
  * <b>CopyTo</b> : Copies all files from one directory to another
