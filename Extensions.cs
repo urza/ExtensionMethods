@@ -311,6 +311,21 @@ namespace ExtensionMethods
             System.Console.WriteLine(str);
             System.Console.ReadKey();
         }
+        
+        /// <summary>
+        /// First line from string
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string GetFirstLine(this string str)
+        {
+            if (str == null) return string.Empty;
+
+            string[] lines = Regex.Split(str, Environment.NewLine);
+            if (lines.Length > 0)
+                return lines[0];
+            else return string.Empty;
+        }
     }
     
     /// <summary>
