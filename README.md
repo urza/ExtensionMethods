@@ -22,7 +22,7 @@ ExtensionMethods - collection of usable C# collection methods
   * <b>double_ToStringOrEmpty</b> : Reutrns double formated according to parameter or empty string
 
 *ListExtensions*
- *<b>Swap</b> Swap two items in List
+ * <b>Swap</b> Swap two items in List
 
 *UIExtensions*
   * <b>FindChild</b> : UI child finder, e.g.: comboBox.FindChild(typeof(TextBox), "PART_EditableTextBox") as TextBox;
