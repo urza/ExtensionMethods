@@ -11,6 +11,9 @@ ExtensionMethods - collection of usable C# collection methods
   * <b>Between</b> : Returns true if the value is between lower and upper. Works for everything that implement IComparable e.g. Int, Double etc.
   * <b>IsIncremental</b> : Checks whether objects in this collection are in incremental order. (Objects must be comparable)
 
+*IntExtensions*
+  * <b>Times</b> : 5.Times(i => Console.writeLine(i));
+
 *EnumExtensions*
   * <b>GetDescription</b> : Makes it easy to get the description (friendly name with spaces etc.) for a given value of the enum
 
