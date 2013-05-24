@@ -9,6 +9,8 @@ using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows;
+using System.IO;
+using System.Text.RegularExpressions;
 
 namespace ExtensionMethods
 {
@@ -128,7 +130,7 @@ namespace ExtensionMethods
         public static bool IsIncremental<T>(this IEnumerable<T> sequence, bool stronglyIncremental = false) where T : IComparable<T>
         {
             using (var iter = sequence.GetEnumerator())
-     	    {
+             {
  		        if (iter.MoveNext())
  		        {
  		            var prevItem = iter.Current;
@@ -203,7 +205,9 @@ namespace ExtensionMethods
         {
             foreach (var item in @enum) mapFunction(item);
         }
-        
+
+        private static Random random = new Random();
+
         public static T GetRandomElement<T>(this IEnumerable<T> list)
         {
             // If there are no elements in the collection, return the default value of T
@@ -296,6 +300,15 @@ namespace ExtensionMethods
                 }
             }
             return foundChild;
+        }
+    }
+
+    public static class IntExtensions
+    {
+        public static void Times(this Int32 times, Action<Int32> action)
+        {
+            for (int i = 0; i < times; i++)
+                action(i);
         }
     }
 
