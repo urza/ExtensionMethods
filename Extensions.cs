@@ -216,6 +216,19 @@ namespace ExtensionMethods
  
             return list.ElementAt(random.Next(list.Count()));
         }
+
+        /// <summary>
+        /// Create string from IEnumerable of chars, because .ToString does not do this
+        /// example use:
+        /// string source = "hello there";
+        /// string fistWord = source.TakeWhile(Char.IsLetterOrDigit).MakeString();
+        /// </summary>
+        /// <param name="chars">IEnumerable of chars</param>
+        /// <returns>string.Concat(chars)</returns>
+        public static string MakeString(this IEnumerable<char> chars)
+        {
+            return string.Concat(chars);
+        }
     }
     
     public static class ListExtensions
