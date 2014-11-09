@@ -74,6 +74,16 @@ namespace ExtensionMethods
             return item.HasValue ? item.Value.ToString(format) : string.Empty;
         }
         
+         /// <summary>
+        /// Returns value of nullable float as string (formated according to parameter) ot empty string if the value is null.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static String float_ToStringOrEmpty(this float? item, string format)
+        {
+            return item.HasValue ? item.Value.ToString(format) : string.Empty;
+        }
+        
     }
 
     public static class BoolExtensions
