@@ -5,6 +5,7 @@ ExtensionMethods - collection of usable C# collection methods
   * <b>ForEach</b> :  allows you to execute something for each of the items without any transformations/data manipulation 
   * <b>GetRandomElement</b> : returns radnom element from the collection
   * <b>MakeString(this IEnumerable<char> chars)</b> : Create string from IEnumerable of chars
+  * <b>TakeLast</b> :  Take last x elements from sequence (in order as they are in the sequence)
 
 *BoolExtensions*
   * <b>In</b> : Returns true if value is contained in given collection
