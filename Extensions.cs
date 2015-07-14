@@ -270,6 +270,15 @@ namespace ExtensionMethods
         {
             return string.Concat(chars);
         }
+        
+        /// <summary>
+        /// Take last x elements from sequence (in order as they are in the sequence)
+        /// Ex: collection.TakeLast(5);
+        /// </summary>
+        public static IEnumerable<T> TakeLast<T>(this IEnumerable<T> source, int N)
+        {
+            return source.Skip(Math.Max(0, source.Count() - N));
+        }
     }
     
     public static class ListExtensions
