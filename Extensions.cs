@@ -51,6 +51,37 @@ namespace ExtensionMethods
             return birthDate.ToAge(DateTime.Today);
         }
     }
+    
+     public static class DateTimeExtensions
+    {
+        /// <summary>
+        /// Given date in list of dates, return short date representation if the date with this day is only once in the list ie there is no other date with same day in the list
+        /// Otherwise, when the list contains at least two dates with same day as this day, return ShortDate+hour:minutes
+        /// Example:  
+        /// d1 : 2015-05-23-20-20-20;
+        /// d2 : 2015-06-24-08-30-00; (same day)
+        /// d3 : 2015-06-24-09-45-00; (same day)
+        /// var dates = [ d1, d2, d3 ]
+        /// 
+        /// d1.ToShortDateUnique() will return d1.ToShortDateString()
+        /// d2.ToShortDateUnique() will return d2.ToShortDateString() + d2.ToShortTimeString()
+        ///     //may return "24. 6. 2015 8:30" depending on what return ShortDateString
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static string ToShortDateUnique(this DateTime value, IEnumerable<DateTime> listOfDates)
+        {
+            //if this day is in list of dates more than once
+            if (listOfDates.Select(d => d.ToShortDateString()).Where(d => d == value.ToShortDateString()).Count() > 1)
+            {
+                return value.ToShortDateString() + " " + value.ToShortTimeString();
+            }
+            else
+            {
+                return value.ToShortDateString();
+            }
+        }
+    }
 
     public static class NullableExtensions
     {
