@@ -1,7 +1,6 @@
 ExtensionMethods - collection of usable C# collection methods
 ================
 
-
 *IEnumerableExtensions*
   * <b>ForEach</b> :  allows you to execute something for each of the items without any transformations/data manipulation 
   * <b>GetRandomElement</b> : returns radnom element from the collection
@@ -17,6 +16,9 @@ ExtensionMethods - collection of usable C# collection methods
 
 *EnumExtensions*
   * <b>GetDescription</b> : Makes it easy to get the description (friendly name with spaces etc.) for a given value of the enum
+
+*DateTimeExtensions*
+ * <b>ToShortDateUnique</b> : return .ToShortDate() or ShortDate+hour:minutes if there are two or more dates of the same day in list of dates
 
 *NullableDateTimeExtensions*
   * <b>ToShortDateString</b> : Returns short date string or empty string if the value is null
