@@ -81,6 +81,27 @@ namespace ExtensionMethods
                 return value.ToShortDateString();
             }
         }
+        
+        /// <summary>
+        /// Get the quarter of the year for this datetime.
+        /// </summary>
+        /// <param name="value">1 to 4 ...quarter of year to which this date belongs </param>
+        /// <returns></returns>
+        public static int Quarter(this DateTime value)
+        {
+            return (value.Month - 1) / 3 + 1;
+        }
+
+        public static DateTime FirstDayOfQUarter(this DateTime value)
+        {
+            int quarterNumber = value.Quarter();
+            return new DateTime(value.Year, (quarterNumber - 1) * 3 + 1, 1);
+        }
+
+        public static DateTime LastDayOfQUarter(this DateTime value)
+        {
+            return value.FirstDayOfQUarter().AddMonths(3).AddDays(-1);
+        }
     }
 
     public static class NullableExtensions
