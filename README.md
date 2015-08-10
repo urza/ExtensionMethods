@@ -20,6 +20,9 @@ ExtensionMethods - collection of usable C# collection methods
 
 *DateTimeExtensions*
  * <b>ToShortDateUnique</b> : return .ToShortDate() or ShortDate+hour:minutes if there are two or more dates of the same day in list of dates
+ * <b>Quarter</b> : Get the quarter of the year for this datetime.
+ * <b>FirstDayOfQUarter</b> : First day of quarter to which this date belongs.
+ * <b>LastDayOfQUarter</b> : Last day of quarter to which this date belongs.
 
 *NullableDateTimeExtensions*
   * <b>ToShortDateString</b> : Returns short date string or empty string if the value is null
