@@ -47,3 +47,5 @@ ExtensionMethods - collection of usable C# collection methods
 
 *DirectoryInfoExtensions*
  * <b>CopyTo</b> : Copies all files from one directory to another
+ 
+ todo
