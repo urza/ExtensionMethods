@@ -12,6 +12,9 @@ ExtensionMethods - collection of usable C# collection methods
   * <b>Between</b> : Returns true if the value is between lower and upper. Works for everything that implement IComparable e.g. Int, Double etc.
   * <b>IsIncremental</b> : Checks whether objects in this collection are in incremental order. (Objects must be comparable)
 
+*GenericExtensions*
+ * <b>ToStringOrValue</b> : Return this.ToString or alternative string value if this item does not satisfy the predicate condition
+
 *IntExtensions*
   * <b>Times</b> : 5.Times(i => Console.writeLine(i));
 
@@ -47,14 +50,15 @@ ExtensionMethods - collection of usable C# collection methods
   * <b>Println</b> : Write string to console (System.Console.WriteLine(str);)
   * <b>PrintlnAndPause</b> Write string to console and wait for ReadKey
   * <b>GetFirstLine</b> First line from string
+  * <b>GetFirstWord</b> 
+  * <b>GetLines</b> 
   * <b>ContainsAny</b> "my text".ContainsAny("tems1", "term 2",...)
   * <b>ContainsAll</b> "my text".ContainsAll("tems1", "term 2",...)
   * <b>RemoveDiacritics</b> (experimental)
   * <b>FloatParseCzEn</b> 
   * <b>MakeValidFileName</b>  Removes characters that are not valid in file names in Windows
-  * <b>SanitizeCzech</b> First line from string
-  * <b>GetFirstLine</b> First line from string
-  * <b>GetFirstLine</b> First line from string
+  * <b>SanitizeCzech</b> 
+
 
 *DirectoryInfoExtensions*
  * <b>CopyTo</b> : Copies all files from one directory to another

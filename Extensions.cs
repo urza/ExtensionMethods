@@ -242,6 +242,28 @@ namespace ExtensionMethods
         }
     }
 
+    public static class GenericExtensions
+    {
+        /// <summary>
+        /// Return this.ToString or alternative string value if this item does not satisfy the predicate condition
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="item"></param>
+        /// <param name="predicate"></param>
+        /// <param name="alternativeValue"></param>
+        /// <returns></returns>
+        public static string ToStringOrValue<T>(this T item, Func<T, bool> predicate, string alternativeValue)
+        {
+            if (item == null) throw new ArgumentNullException("item");
+            if (predicate == null) throw new ArgumentNullException("predicate");
+
+            if (predicate(item))
+                return item.ToString();
+            else
+                return alternativeValue;
+        }
+    }
+
     public static class EnumExtensions
     {
         /// <summary>
@@ -455,6 +477,41 @@ namespace ExtensionMethods
             if (lines.Length > 0)
                 return lines[0];
             else return string.Empty;
+        }
+
+        public static string GetFirstWord(this string item)
+        {
+            // Get first word if name has two words or less
+            // get first two words if name has 3 or more words
+
+            if (!string.IsNullOrEmpty(item))
+            {
+                var words = item.Trim().Split(' ');
+                return words.First();
+            }
+
+            return "";
+        }
+
+        /// <summary>
+        /// Split string by new lines
+        /// https://stackoverflow.com/questions/1508203/best-way-to-split-string-into-lines/41176852#41176852
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<string> GetLines(this string str, bool removeEmptyLines = false)
+        {
+            using (var sr = new StringReader(str))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    if (removeEmptyLines && String.IsNullOrWhiteSpace(line))
+                    {
+                        continue;
+                    }
+                    yield return line;
+                }
+            }
         }
 
         /// <summary>
