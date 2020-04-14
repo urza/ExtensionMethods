@@ -48,7 +48,8 @@ ExtensionMethods - collection of usable C# collection methods
 *DirectoryInfoExtensions*
  * <b>CopyTo</b> : Copies all files from one directory to another
  
-*Helper methods:
+*Helper methods*
+
 these are static methods, not extension methods
  * <b>FirstNonEmpty</b> : first string (from parameters) that is not null and not empty (e.g.: FirstNonEmpty(CustomColor, Person?.Color, "#6F3948")
  * <b>CountDays</b> : Counts how many Mondays (or Tuesdays,..) is in given date range
