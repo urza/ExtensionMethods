@@ -104,6 +104,30 @@ namespace ExtensionMethods
         }
     }
 
+    public static class TimeExtensions
+    {
+        /// <summary>
+        /// 11:40 -> 11.6
+        /// </summary>
+        /// <param name="time"></param>
+        /// <returns></returns>
+        public static double HoursToDecimal(this string time)
+        {
+            try
+            {
+                DateTime dt0 = DateTime.Parse("00:00");
+                DateTime dt1 = DateTime.Parse(time);
+                double span = (dt1 - dt0).TotalHours;
+                var rounded = Math.Round(span, 2);
+                return rounded;
+            }
+            catch
+            {
+                return -1;
+            }
+        }
+    }
+
     public static class NullableExtensions
     {
         /// <summary>
@@ -431,6 +455,123 @@ namespace ExtensionMethods
             if (lines.Length > 0)
                 return lines[0];
             else return string.Empty;
+        }
+
+        /// <summary>
+        /// "my text".ContainsAny("tems1", "term 2",...)
+        /// </summary>
+        public static bool ContainsAny(this string value, params string[] pars)
+        {
+            return pars.Any(p => value.Contains(p));
+        }
+
+        /// <summary>
+        /// "my text".ContainsAll("tems1", "term 2",...)
+        /// </summary>
+        public static bool ContainsAll(this string value, params string[] pars)
+        {
+            return pars.All(p => value.Contains(p));
+        }
+
+        /// <summary>
+        /// Use at your own risk
+        /// </summary>
+        public static string RemoveDiacritics(this string value)
+        {
+            string stFormD = value.Normalize(NormalizationForm.FormD);
+            int len = stFormD.Length;
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < len; i++)
+            {
+                System.Globalization.UnicodeCategory uc = System.Globalization.CharUnicodeInfo.GetUnicodeCategory(stFormD[i]);
+                if (uc != System.Globalization.UnicodeCategory.NonSpacingMark)
+                {
+                    sb.Append(stFormD[i]);
+                }
+            }
+            return (sb.ToString().Normalize(NormalizationForm.FormC));
+        }
+
+        /// <summary>
+        /// Try to parse string to int with either "." or "," as decimal separator. Must not contain both and must be only once in input string.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static int IntParseCzEn(this string value)
+        {
+            int result = 0;
+            string cislo = value;
+
+            bool proslo = int.TryParse(cislo, out result);
+
+            if (proslo)
+                return result;
+            else
+            {
+                if (value.Contains(','))
+                    cislo = cislo.Replace(',', '.');
+                else if (value.Contains('.'))
+                    cislo = cislo.Replace('.', ',');
+
+                proslo = int.TryParse(cislo, out result);
+
+                if (proslo)
+                    return result;
+                else
+                    throw new ArgumentException();
+            }
+        }
+
+        /// <summary>
+        /// Try to parse string to float with either "." or "," as decimal separator. Must not contain both and must be only once in input string.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static float FloatParseCzEn(this string value)
+        {
+            float result = 0;
+            string cislo = value;
+
+            bool proslo = float.TryParse(cislo, out result);
+
+            if (proslo)
+                return result;
+            else
+            {
+                if (value.Contains(','))
+                    cislo = cislo.Replace(',', '.');
+                else if (value.Contains('.'))
+                    cislo = cislo.Replace('.', ',');
+
+                proslo = float.TryParse(cislo, out result);
+
+                if (proslo)
+                    return result;
+                else
+                    throw new ArgumentException(); 
+            }
+        }
+
+        /// <summary>
+        /// Removes characters that are not valid in file names under windows.
+        /// Sanitize string to be filename. Removes illegal characters.
+        /// Does not deal with resctrictions like lenght or reserved words. Simple removes illegal characters and replaces them with "_"
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static string MakeValidFileName(this string name)
+        {
+            string invalidChars = System.Text.RegularExpressions.Regex.Escape(new string(System.IO.Path.GetInvalidFileNameChars()));
+            string invalidRegStr = string.Format(@"([{0}]*\.+$)|([{0}]+)", invalidChars);
+
+            return System.Text.RegularExpressions.Regex.Replace(name, invalidRegStr, "_");
+        }
+
+        public static string SanitizeCzech(this string value)
+        {
+            string notallowed = @"[^a-z0-9ÏöË¯û˝·ÌÈÛ˘˙ÔùÚ:_ \.\,\-\(\)]"; //^ = negace toho co nasleduje a potom vycet znaku ktere chci povolit: a-z 0-9 diakritika podtrzitko pomlcka tecka
+            return Regex.Replace(value, notallowed, "_", RegexOptions.IgnoreCase);
+
         }
     }
     

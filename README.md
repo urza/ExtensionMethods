@@ -23,6 +23,9 @@ ExtensionMethods - collection of usable C# collection methods
  * <b>Quarter</b> : Get the quarter of the year for this datetime.
  * <b>FirstDayOfQUarter</b> : First day of quarter to which this date belongs.
  * <b>LastDayOfQUarter</b> : Last day of quarter to which this date belongs.
+ 
+*TimeExtensions*
+ * <b>HoursToDecimal</b> : 11:40 -> 11.6
 
 *NullableDateTimeExtensions*
   * <b>ToShortDateString</b> : Returns short date string or empty string if the value is null
@@ -43,6 +46,14 @@ ExtensionMethods - collection of usable C# collection methods
   * <b>IsDigitsOnly</b> : Checks if the string consists of digits only
   * <b>Println</b> : Write string to console (System.Console.WriteLine(str);)
   * <b>PrintlnAndPause</b> Write string to console and wait for ReadKey
+  * <b>GetFirstLine</b> First line from string
+  * <b>ContainsAny</b> "my text".ContainsAny("tems1", "term 2",...)
+  * <b>ContainsAll</b> "my text".ContainsAll("tems1", "term 2",...)
+  * <b>RemoveDiacritics</b> (experimental)
+  * <b>FloatParseCzEn</b> 
+  * <b>MakeValidFileName</b>  Removes characters that are not valid in file names in Windows
+  * <b>SanitizeCzech</b> First line from string
+  * <b>GetFirstLine</b> First line from string
   * <b>GetFirstLine</b> First line from string
 
 *DirectoryInfoExtensions*
