@@ -473,6 +473,40 @@ namespace ExtensionMethods
             }
         }
     }
+    
+    public static class Helpers
+    {
+        /// <summary>
+        /// Return first string (from parameters) that is not null and not empty
+        /// Example usage: return FirstNonEmpty(CustomColor, Teacher?.Color, "#6F3948");
+        /// </summary>
+        public static string FirstNonEmpty(params string[] strings)
+        {
+            return strings.FirstOrDefault(s => !string.IsNullOrEmpty(s));
+        }
+        
+        /// <summary>
+        /// Counts how many Mondays (or Tuesdays,..) is in given date range
+        /// </summary>
+        /// <param name="day">day of week you want to count</param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
+        public static int CountDays(DayOfWeek day, DateTime startDate, DateTime endDate)
+        {
+            int cnt = 0;
+
+            for (DateTime dt = startDate; dt < endDate; dt = dt.AddDays(1.0))
+            {
+                if (dt.DayOfWeek == day)
+                {
+                    cnt++;
+                }
+            }
+
+            return cnt;
+        }
+    }
 
 }
 
