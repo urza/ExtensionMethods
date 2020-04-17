@@ -41,10 +41,6 @@ ExtensionMethods - collection of usable C# collection methods
 *ListExtensions*
  * <b>Swap</b> Swap two items in List
 
-*UIExtensions*
-  * <b>FindChild</b> : UI child finder, e.g.: comboBox.FindChild(typeof(TextBox), "PART_EditableTextBox") as TextBox;
-  * <b>GetScrollViewer</b> : Returns ScrollViewer of this ListBox or null
-
 *StringExtensions*
   * <b>IsDigitsOnly</b> : Checks if the string consists of digits only
   * <b>Println</b> : Write string to console (System.Console.WriteLine(str);)
@@ -68,4 +64,9 @@ ExtensionMethods - collection of usable C# collection methods
 these are static methods, not extension methods
  * <b>FirstNonEmpty</b> : first string (from parameters) that is not null and not empty (e.g.: FirstNonEmpty(CustomColor, Person?.Color, "#6F3948")
  * <b>CountDays</b> : Counts how many Mondays (or Tuesdays,..) is in given date range
- todo
+
+
+
+*UIExtensions (separete file Extensions_GUI.cs - needs WPF)*
+  * <b>FindChild</b> : UI child finder, e.g.: comboBox.FindChild(typeof(TextBox), "PART_EditableTextBox") as TextBox;
+  * <b>GetScrollViewer</b> : Returns ScrollViewer of this ListBox or null
