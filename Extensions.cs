@@ -101,6 +101,16 @@ namespace ExtensionMethods
         {
             return value.FirstDayOfQUarter().AddMonths(3).AddDays(-1);
         }
+
+        /// <summary>
+        /// Get first day of the week (that this date is part of)
+        /// </summary>
+        /// <param name="startOfWeek">Which day is considered the start of week (yeah, hello americans)</param>
+        public static DateTime StartOfWeek(this DateTime dt, DayOfWeek startOfWeek)
+        {
+            int diff = (7 + (dt.DayOfWeek - startOfWeek)) % 7;
+            return dt.AddDays(-1 * diff).Date;
+        }
     }
 
     public static class TimeExtensions

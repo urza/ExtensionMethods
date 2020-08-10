@@ -26,6 +26,7 @@ ExtensionMethods - collection of usable C# collection methods
  * <b>Quarter</b> : Get the quarter of the year for this datetime.
  * <b>FirstDayOfQUarter</b> : First day of quarter to which this date belongs.
  * <b>LastDayOfQUarter</b> : Last day of quarter to which this date belongs.
+ * <b>StartOfWeek</b> : Get first day of the week (that this date is part of).
  
 *TimeExtensions*
  * <b>HoursToDecimal</b> : 11:40 -> 11.6
