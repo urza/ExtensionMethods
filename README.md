@@ -55,6 +55,7 @@ ExtensionMethods - collection of usable C# collection methods
   * <b>FloatParseCzEn</b> 
   * <b>MakeValidFileName</b>  Removes characters that are not valid in file names in Windows
   * <b>SanitizeCzech</b> 
+  * <b>FirstCharToUpper</b> Capitalize first letter
 
 
 *DirectoryInfoExtensions*
