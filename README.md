@@ -1,4 +1,4 @@
-ExtensionMethods - collection of usable C# collection methods
+ExtensionMethods - collection of useful C# collection methods
 ================
 
 *IEnumerableExtensions*
