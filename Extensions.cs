@@ -1,12 +1,8 @@
 using System;
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.ComponentModel;
-using System.Globalization;
-using System.Collections.ObjectModel;
-using System.Windows;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Text;
@@ -24,8 +20,8 @@ namespace ExtensionMethods
         {
             return item.HasValue ? item.Value.ToShortDateString() : string.Empty;
         }
-        
-         /// <summary>
+
+        /// <summary>
         /// Calculates age (at given date) form date of birth
         /// </summary>
         /// <param name="birthDate">Date of Birth</param>
@@ -50,8 +46,8 @@ namespace ExtensionMethods
             return birthDate.ToAge(DateTime.Today);
         }
     }
-    
-     public static class DateTimeExtensions
+
+    public static class DateTimeExtensions
     {
         /// <summary>
         /// Given date in list of dates, return short date representation if the date with this day is only once in the list ie there is no other date with same day in the list
@@ -80,7 +76,7 @@ namespace ExtensionMethods
                 return value.ToShortDateString();
             }
         }
-        
+
         /// <summary>
         /// Get the quarter of the year for this datetime.
         /// </summary>
@@ -110,6 +106,14 @@ namespace ExtensionMethods
         {
             int diff = (7 + (dt.DayOfWeek - startOfWeek)) % 7;
             return dt.AddDays(-1 * diff).Date;
+        }
+
+        /// <summary>
+        /// Last day of thsi month
+        /// </summary>
+        public static DateTime GetLastDayOfMonth(this DateTime dateTime)
+        {
+            return new DateTime(dateTime.Year, dateTime.Month, DateTime.DaysInMonth(dateTime.Year, dateTime.Month));
         }
     }
 
@@ -148,7 +152,7 @@ namespace ExtensionMethods
         {
             return item.HasValue ? item.ToString() : string.Empty;
         }
-        
+
         /// <summary>
         /// Returns value of nullable double as string (formated according to parameter) ot empty string if the value is null.
         /// </summary>
@@ -158,8 +162,8 @@ namespace ExtensionMethods
         {
             return item.HasValue ? item.Value.ToString(format) : string.Empty;
         }
-        
-         /// <summary>
+
+        /// <summary>
         /// Returns value of nullable float as string (formated according to parameter) ot empty string if the value is null.
         /// </summary>
         /// <param name="value"></param>
@@ -168,7 +172,7 @@ namespace ExtensionMethods
         {
             return item.HasValue ? item.Value.ToString(format) : string.Empty;
         }
-        
+
     }
 
     public static class BoolExtensions
@@ -214,7 +218,7 @@ namespace ExtensionMethods
         {
             return actual.CompareTo(lower) >= 0 && actual.CompareTo(upper) < 0;
         }
-        
+
         /// <summary>
         /// Checks whether objects in this collection are in incremental order. (Objects must be comparable)
         /// </summary>
@@ -225,29 +229,29 @@ namespace ExtensionMethods
         public static bool IsIncremental<T>(this IEnumerable<T> sequence, bool stronglyIncremental = false) where T : IComparable<T>
         {
             using (var iter = sequence.GetEnumerator())
-             {
- 		        if (iter.MoveNext())
- 		        {
- 		            var prevItem = iter.Current;
- 		            while (iter.MoveNext())
- 		            {
- 		                var nextItem = iter.Current;
-                        if(stronglyIncremental)
+            {
+                if (iter.MoveNext())
+                {
+                    var prevItem = iter.Current;
+                    while (iter.MoveNext())
+                    {
+                        var nextItem = iter.Current;
+                        if (stronglyIncremental)
                         {
                             if (prevItem.CompareTo(nextItem) >= 0)
                                 return false;
                         }
                         else
                         {
-                            if (prevItem.CompareTo(nextItem) > 0 )
+                            if (prevItem.CompareTo(nextItem) > 0)
                                 return false;
                         }
- 		                prevItem = nextItem;
- 		            }
- 		        }
- 		    }
+                        prevItem = nextItem;
+                    }
+                }
+            }
 
-            return true; 
+            return true;
         }
     }
 
@@ -323,6 +327,19 @@ namespace ExtensionMethods
             foreach (var item in @enum) mapFunction(item);
         }
 
+        /// <summary>
+        /// foreach((int index, string item) in myList.WithIndex())...
+        /// </summary>
+        public static IEnumerable<(int index, T item)> WithIndex<T>(this IEnumerable<T> source)
+        {
+            int index = 0;
+            foreach (var item in source)
+            {
+                index = index + 1;
+                yield return (index, item);
+            }
+        }
+
         private static Random random = new Random();
 
         public static T GetRandomElement<T>(this IEnumerable<T> list)
@@ -330,7 +347,7 @@ namespace ExtensionMethods
             // If there are no elements in the collection, return the default value of T
             if (list.Count() == 0)
                 return default(T);
- 
+
             return list.ElementAt(random.Next(list.Count()));
         }
 
@@ -346,7 +363,7 @@ namespace ExtensionMethods
         {
             return string.Concat(chars);
         }
-        
+
         /// <summary>
         /// Take last x elements from sequence (in order as they are in the sequence)
         /// Ex: collection.TakeLast(5);
@@ -355,8 +372,20 @@ namespace ExtensionMethods
         {
             return source.Skip(Math.Max(0, source.Count() - N));
         }
+
+        public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
+        {
+            HashSet<TKey> seenKeys = new HashSet<TKey>();
+            foreach (TSource element in source)
+            {
+                if (seenKeys.Add(keySelector(element)))
+                {
+                    yield return element;
+                }
+            }
+        }
     }
-    
+
     public static class ListExtensions
     {
         ///Swap two items in List
@@ -388,7 +417,7 @@ namespace ExtensionMethods
             }
             return true;
         }
-        
+
         public static void Println(this string str)
         {
             System.Console.WriteLine(str);
@@ -398,7 +427,7 @@ namespace ExtensionMethods
             System.Console.WriteLine(str);
             System.Console.ReadKey();
         }
-        
+
         /// <summary>
         /// First line from string
         /// </summary>
@@ -537,7 +566,7 @@ namespace ExtensionMethods
                 if (proslo)
                     return result;
                 else
-                    throw new ArgumentException(); 
+                    throw new ArgumentException();
             }
         }
 
@@ -558,23 +587,86 @@ namespace ExtensionMethods
 
         public static string SanitizeCzech(this string value)
         {
-            string notallowed = @"[^a-z0-9ìèøýáíéóùúïò:_ \.\,\-\(\)]"; //^ = negace toho co nasleduje a potom vycet znaku ktere chci povolit: a-z 0-9 diakritika podtrzitko pomlcka tecka
+            string notallowed = @"[^a-z0-9áéíóúýčďěňřšťžů:_ \.\,\-\(\)]"; //^ = negace toho co nasleduje a potom vycet znaku ktere chci povolit: a-z 0-9 diakritika podtrzitko pomlcka tecka
             return Regex.Replace(value, notallowed, "_", RegexOptions.IgnoreCase);
+
+        }
+
+        /// <summary>
+        /// Only low letters, digits and -
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>replaces non valid chars with -</returns>
+        public static string SanitizeStrict(this string value)
+        {
+            string notallowed = @"[^a-z0-9\-]"; //^ = negace toho co nasleduje a potom vycet znaku ktere chci povolit: a-z 0-9 diakritika podtrzitko pomlcka tecka
+            return Regex.Replace(value, notallowed, "-", RegexOptions.IgnoreCase);
 
         }
 
         /// <summary>
         /// Capitalize first letter
         /// </summary>
-        public static string FirstCharToUpper(this string input) =>
-               input switch
-               {
-                   null => throw new ArgumentNullException(nameof(input)),
-                   "" => throw new ArgumentException($"{nameof(input)} cannot be empty", nameof(input)),
-                   _ => input.First().ToString().ToUpper() + input.Substring(1)
-               };
+        public static string FirstCharToUpper(this string input)
+        {
+            if (input == null)
+                throw new ArgumentNullException(nameof(input));
+
+            if (input == "")
+                throw new ArgumentException($"{nameof(input)} cannot be empty", nameof(input));
+
+            return input.First().ToString().ToUpper() + input.Substring(1);
+        }
+
+        public static IEnumerable<string> SplitLazy(this string toSplit, params char[] splits)
+        {
+            if (string.IsNullOrEmpty(toSplit))
+                yield break;
+
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var c in toSplit)
+            {
+                if (splits.Contains(c))
+                {
+                    yield return sb.ToString();
+                    sb.Clear();
+                }
+                else
+                {
+                    sb.Append(c);
+                }
+            }
+
+            if (sb.Length > 0)
+                yield return sb.ToString();
+        }
+
+        
     }
-    
+
+    /// <summary>
+    /// Not extension methods, but static helper methods
+    /// </summary>
+    public static class StringHelpers
+    {
+        /// <summary>
+        /// Return first string (from parameters) that is not null and not empty
+        /// </summary>
+        public static string FirstNonEmpty(params string[] strings)
+        {
+            return strings.FirstOrDefault(s => !string.IsNullOrEmpty(s));
+        }
+
+        public static string StringSha256Hash(string text)
+        {
+            return string.IsNullOrEmpty(text) ? string.Empty 
+                : BitConverter.ToString(new System.Security.Cryptography.SHA256Managed().
+                                ComputeHash(System.Text.Encoding.UTF8.GetBytes(text)))
+                                .Replace("-", string.Empty);
+        }
+    }
+
     /// <summary>
     /// copy directories recusrively
     /// http://stackoverflow.com/questions/2742300/what-is-the-best-way-to-copy-a-folder-and-all-subfolders-and-files-using-c-sharp
@@ -613,8 +705,18 @@ namespace ExtensionMethods
                     Path.Combine(target.FullName, directory.Name), recursive);
             }
         }
+
+        /// <summary>
+        /// Create directory if necessery
+        /// </summary>
+        /// <returns>the directory path</returns>
+        public static string EnsureDirExists(this string dir)
+        {
+            Directory.CreateDirectory(dir);
+            return dir;
+        }
     }
-    
+
     public static class Helpers
     {
         /// <summary>
@@ -625,7 +727,7 @@ namespace ExtensionMethods
         {
             return strings.FirstOrDefault(s => !string.IsNullOrEmpty(s));
         }
-        
+
         /// <summary>
         /// Counts how many Mondays (or Tuesdays,..) is in given date range
         /// </summary>
