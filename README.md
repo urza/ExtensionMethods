@@ -56,6 +56,8 @@ ExtensionMethods - collection of useful C# collection methods
   * <b>MakeValidFileName</b>  Removes characters that are not valid in file names in Windows
   * <b>SanitizeCzech</b> 
   * <b>FirstCharToUpper</b> Capitalize first letter
+  * <b>IsNotEmpty</b> Instead of !string.IsNullOrEmpty(str) just do str.IsNotEmpty()
+  * <b>IsNotNullOrWhiteSpace</b> Instead of !string.IsNullOrWhiteSpace(str) just do str.IsNotEmptyOrWhiteSpace()
 
 
 *DirectoryInfoExtensions*

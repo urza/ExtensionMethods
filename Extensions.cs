@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Text;
+using System.Globalization;
 
 namespace ExtensionMethods
 {
@@ -416,6 +417,24 @@ namespace ExtensionMethods
                     return false;
             }
             return true;
+        }
+
+        /// <summary>
+        /// Instead of !string.IsNullOrEmpty(str) just do str.IsNotEmpty()
+        /// </summary>
+        public static bool IsNotEmpty(this string str)
+        {
+           
+                return !string.IsNullOrEmpty(str);
+        }
+
+        /// <summary>
+        /// Instead of !string.IsNullOrWhiteSpace(str) just do str.IsNotEmptyOrWhiteSpace()
+        /// </summary>
+        public static bool IsNotNullOrWhiteSpace(this string str)
+        {
+
+            return !string.IsNullOrWhiteSpace(str);
         }
 
         public static void Println(this string str)
