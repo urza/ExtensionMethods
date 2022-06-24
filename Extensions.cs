@@ -118,6 +118,64 @@ namespace ExtensionMethods
         }
     }
 
+    public static class DateExt
+    {
+        /// <summary>
+        /// Counts how many Mondays (or Tuesdays,..) is in given date range
+        /// </summary>
+        /// <param name="day">day of week you want to count</param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
+        public static int CountDays(DayOfWeek day, DateTime startDate, DateTime endDate)
+        {
+            int cnt = 0;
+
+            for (DateTime dt = startDate; dt < endDate; dt = dt.AddDays(1.0))
+            {
+                if (dt.DayOfWeek == day)
+                {
+                    cnt++;
+                }
+            }
+
+            return cnt;
+        }
+
+        /// <summary>
+        /// List all Mondays (or Tuesdays,..) is in given date range
+        /// </summary>
+        /// <param name="day">day of week you want to count</param>
+        /// <param name="startDate">including this</param>
+        /// <param name="endDate">including this</param>
+        /// <returns></returns>
+        public static IEnumerable<DateTime> GetDaysBetween(DayOfWeek day, DateTime startDate, DateTime endDate)
+        {
+            startDate = startDate.Date;
+
+            for (DateTime dt = startDate; dt <= endDate; dt = dt.AddDays(1.0))
+            {
+                if (dt.DayOfWeek == day)
+                {
+                    yield return dt;
+                }
+            }
+
+        }
+
+
+        public static IEnumerable<DateTime> monthsDatesBetween(DateTime d0, DateTime d1)
+        {
+            return Enumerable.Range(0, (d1.Year - d0.Year) * 12 + (d1.Month - d0.Month + 1))
+                             .Select(m => new DateTime(d0.Year, d0.Month, 1).AddMonths(m));
+        }
+
+        public static IEnumerable<string> monthsNamesBetween(DateTime d0, DateTime d1)
+        {
+            return monthsDatesBetween(d0, d1).Select(x => DateTimeFormatInfo.CurrentInfo.MonthNames[x.Month - 1]);
+        }
+    }
+
     public static class TimeExtensions
     {
         /// <summary>
