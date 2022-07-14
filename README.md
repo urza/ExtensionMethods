@@ -71,6 +71,7 @@ these are static methods, not extension methods
  * <b>GetDaysBetween</b> : Same but not enumareble of days, not count
  * <b>monthsDatesBetween</b> : months between two dates
  * <b>monthsNamesBetween</b> : months names between two dates
+ * <b>TryParseDate</b> : parse datetime from string and returns null in case of fail.
 
 
 

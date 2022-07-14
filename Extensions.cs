@@ -482,8 +482,8 @@ namespace ExtensionMethods
         /// </summary>
         public static bool IsNotEmpty(this string str)
         {
-           
-                return !string.IsNullOrEmpty(str);
+
+            return !string.IsNullOrEmpty(str);
         }
 
         /// <summary>
@@ -719,7 +719,7 @@ namespace ExtensionMethods
                 yield return sb.ToString();
         }
 
-        
+
     }
 
     /// <summary>
@@ -737,7 +737,7 @@ namespace ExtensionMethods
 
         public static string StringSha256Hash(string text)
         {
-            return string.IsNullOrEmpty(text) ? string.Empty 
+            return string.IsNullOrEmpty(text) ? string.Empty
                 : BitConverter.ToString(new System.Security.Cryptography.SHA256Managed().
                                 ComputeHash(System.Text.Encoding.UTF8.GetBytes(text)))
                                 .Replace("-", string.Empty);
@@ -826,6 +826,30 @@ namespace ExtensionMethods
 
             return cnt;
         }
+
+
+        /// <summary>
+        /// Static method, that tries to parse datetime from string and returns null in case of fail.
+        /// Can be used like this:
+        /// 
+        /// "var dt_or_null = TryParseDate("2011-12-20");
+        /// 
+        /// this will be either valid datetime or null
+        /// so you can also do default value like this:
+        /// 
+        /// "var dt_or_default = TryParseDate("2011-12-20") ?? new DateTime(2000,1,1);
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static DateTime? TryParseDate(string value)
+        {
+            DateTime result;
+            if (!DateTime.TryParse(value, out result))
+                return null;
+            return result;
+        }
+
     }
 
 }
