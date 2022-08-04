@@ -6,6 +6,7 @@ ExtensionMethods - collection of useful C# collection methods
   * <b>GetRandomElement</b> : returns radnom element from the collection
   * <b>MakeString(this IEnumerable<char> chars)</b> : Create string from IEnumerable of chars
   * <b>TakeLast</b> :  Take last x elements from sequence (in order as they are in the sequence)
+  * <b>AddAlternatives</b> :  Create new collection that contains the original input and extends it with "alternative" items
 
 *BoolExtensions*
   * <b>In</b> : Returns true if value is contained in given collection

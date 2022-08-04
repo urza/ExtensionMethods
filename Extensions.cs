@@ -443,6 +443,50 @@ namespace ExtensionMethods
                 }
             }
         }
+
+        /// <summary>
+        /// Create new collection that contains the original input and extends it with "alternative" items.
+        /// For example consider having list of file extensions as input:
+        /// ["pdf", "doc", "jpg", "jif", "zip"]
+        /// and definition of alternatives:
+        /// "doc" => ["docx"] // doc is expected to be in input collection, docx is alternative you want to add
+        /// "jpg" => ["jpeg" , "jpe" , "jif" , "jfif"] // jpg is in input collection and we want to add jpeg, jpe, jif, jfif
+        /// 
+        /// Then applying this method on the input collection will result in this new collection:
+        /// ["pdf", "doc", "jpg", "jif", "zip", "docx", "jpeg" , "jpe" , "jfif"]
+        /// 
+        /// </summary>
+        /// <typeparam name="T">type must be comparable</typeparam>
+        /// <param name="list">input, will not be modified</param>
+        /// <param name="alternatives">Key is item from input list and value is one or more alternatives of the same type</param>
+        /// <returns>new collection created by concatenation, original colleciton + alternatives</returns>
+        public static IEnumerable<T> AddAlternatives<T>(this IEnumerable<T> list, Dictionary<T, IEnumerable<T>> alternatives)
+        {
+            List<T> add = new();
+            var input_uniques = list.Distinct();
+
+            //iterate over the collection we want to extend, but only disctinct
+            foreach (var item in input_uniques)
+            {
+                //if the item has defined altenative(s) 
+                if (alternatives.ContainsKey(item))
+                {
+                    //and they are not present in resulting collection yet, add them
+                    foreach (var alternative in alternatives[item])
+                    {
+                        if (!input_uniques.Contains(alternative)
+                            && !add.Contains(alternative)) // also avoid duplicited in what we are adding
+                        {
+                            add.Add(alternative); // List - modify
+                        }
+
+                    }
+                }
+            }
+
+            //return new collection containing original + alternatives
+            return list.Concat(add);
+        }
     }
 
     public static class ListExtensions
