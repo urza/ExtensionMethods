@@ -7,6 +7,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Text;
 using System.Globalization;
+using System.Numerics;
 
 namespace ExtensionMethods
 {
@@ -197,6 +198,11 @@ namespace ExtensionMethods
             {
                 return -1;
             }
+        }
+
+        public static TimeOnly ToTimeOnly(this TimeSpan item)
+        {
+            return TimeOnly.FromTimeSpan(item);
         }
     }
 
@@ -509,6 +515,23 @@ namespace ExtensionMethods
         }
     }
 
+    public static class FloatExtensions
+    {
+        public static float Round(this float item, int digits)
+        {
+            return (float)Math.Round(item, digits);
+        }
+    }
+
+    public static class DoubleExtensions
+    {
+        public static double Round(this double item, int digits)
+        {
+            return Math.Round(item, digits);
+        }
+    }
+
+
     public static class StringExtensions
     {
         public static bool IsDigitsOnly(this string str)
@@ -636,6 +659,8 @@ namespace ExtensionMethods
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
+        [Obsolete("use TryParseNumberCzEn")]
+
         public static int IntParseCzEn(this string value)
         {
             int result = 0;
@@ -666,6 +691,7 @@ namespace ExtensionMethods
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
+        [Obsolete("use TryParseNumberCzEn")]
         public static float FloatParseCzEn(this string value)
         {
             float result = 0;
@@ -686,6 +712,59 @@ namespace ExtensionMethods
 
                 if (proslo)
                     return result;
+                else
+                    throw new ArgumentException();
+            }
+        }
+
+        /// <summary>
+        /// Parsing numbers as it should be in the framework.
+        /// use like this:
+        /// var parse = "12.5".TryParseNumber<double>();
+        ///  if (parse.success)
+        ///  { 
+        ///    double x = parse.result;
+        ///  }
+        /// </summary>
+        public static (bool success, T result) TryParseNumber<T>(this string value) where T : INumber<T>
+        {
+            T result = default(T);
+            var succ = T.TryParse(value, CultureInfo.InvariantCulture, out result);
+            return (succ, result);
+        }
+
+        /// <summary>
+        /// Try to parse string to number with either "." or "," as decimal separator. 
+        /// Must not contain both and must be only once in input string.
+        /// 
+        /// </summary>
+        /// <typeparam name="T">must implement INumber</typeparam>
+        /// <returns>tuple (bool success, T result)</returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static (bool success, T result) TryParseNumberCzEn<T>(this string value) where T : INumber<T>
+        {
+            string cislo = value;
+
+            if (value.Contains(','))
+                cislo = cislo.Replace(',', '.');
+
+            var tryparse = cislo.TryParseNumber<T>();
+            bool proslo = tryparse.success;
+
+            if (proslo)
+                return tryparse;
+            else
+            {
+                if (value.Contains(','))
+                    cislo = cislo.Replace(',', '.');
+                else if (value.Contains('.'))
+                    cislo = cislo.Replace('.', ',');
+
+                tryparse = cislo.TryParseNumber<T>();
+                proslo = tryparse.success;
+
+                if (proslo)
+                    return tryparse;
                 else
                     throw new ArgumentException();
             }

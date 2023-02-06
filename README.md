@@ -53,7 +53,8 @@ ExtensionMethods - collection of useful C# collection methods
   * <b>ContainsAny</b> "my text".ContainsAny("tems1", "term 2",...)
   * <b>ContainsAll</b> "my text".ContainsAll("tems1", "term 2",...)
   * <b>RemoveDiacritics</b> (experimental)
-  * <b>FloatParseCzEn</b> 
+  * <b>TryParseNumber</b> : Parsing numbers as it should be in the framework.
+  * <b>TryParseNumberCzEn</b> : trying to to go crazy from cz vs en decimal separator
   * <b>MakeValidFileName</b>  Removes characters that are not valid in file names in Windows
   * <b>SanitizeCzech</b> 
   * <b>FirstCharToUpper</b> Capitalize first letter
