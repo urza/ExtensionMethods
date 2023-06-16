@@ -21,6 +21,7 @@ ExtensionMethods - collection of useful C# collection methods
 
 *EnumExtensions*
   * <b>GetDescription</b> : Makes it easy to get the description (friendly name with spaces etc.) for a given value of the enum
+  * <b>GetDisplayName</b> : Gets [Display(Name = "xxx")] of enum.
 
 *DateTimeExtensions*
  * <b>ToShortDateUnique</b> : return .ToShortDate() or ShortDate+hour:minutes if there are two or more dates of the same day in list of dates
@@ -28,6 +29,7 @@ ExtensionMethods - collection of useful C# collection methods
  * <b>FirstDayOfQUarter</b> : First day of quarter to which this date belongs.
  * <b>LastDayOfQUarter</b> : Last day of quarter to which this date belongs.
  * <b>StartOfWeek</b> : Get first day of the week (that this date is part of).
+ * <b>ToDateOnly</b> : Convert to DateOnly.
  
 *TimeExtensions*
  * <b>HoursToDecimal</b> : 11:40 -> 11.6
