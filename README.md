@@ -62,6 +62,7 @@ ExtensionMethods - collection of useful C# collection methods
   * <b>FirstCharToUpper</b> Capitalize first letter
   * <b>IsNotEmpty</b> Instead of !string.IsNullOrEmpty(str) just do str.IsNotEmpty()
   * <b>IsNotNullOrWhiteSpace</b> Instead of !string.IsNullOrWhiteSpace(str) just do str.IsNotEmptyOrWhiteSpace()
+  * <b>Substring2</b> Substring without crashing when not long enough
 
 
 *DirectoryInfoExtensions*

@@ -624,6 +624,14 @@ namespace ExtensionMethods
         }
 
         /// <summary>
+        /// Substring without crashing when not long enough
+        /// </summary>
+        public static string Substring2(this string str, int startIndex, int length)
+        {
+            return str.Substring(startIndex, Math.Min(length, str.Length));
+        }
+
+        /// <summary>
         /// Split string by new lines
         /// https://stackoverflow.com/questions/1508203/best-way-to-split-string-into-lines/41176852#41176852
         /// </summary>
@@ -822,10 +830,10 @@ namespace ExtensionMethods
         /// </summary>
         /// <param name="value"></param>
         /// <returns>replaces non valid chars with -</returns>
-        public static string SanitizeStrict(this string value)
+        public static string SanitizeStrict(this string value, string replacement = "-")
         {
             string notallowed = @"[^a-z0-9\-]"; //^ = negace toho co nasleduje a potom vycet znaku ktere chci povolit: a-z 0-9 diakritika podtrzitko pomlcka tecka
-            return Regex.Replace(value, notallowed, "-", RegexOptions.IgnoreCase);
+            return Regex.Replace(value, notallowed, replacement, RegexOptions.IgnoreCase);
 
         }
 
