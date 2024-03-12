@@ -587,6 +587,34 @@ namespace ExtensionMethods
             return !string.IsNullOrWhiteSpace(str);
         }
 
+        /// <summary>
+        /// Shortens a string by keeping only the start and end portions, separated by two dots (..).
+        /// If the string's length is less than or equal to the specified maximum length * 2, it returns the original string.
+        /// </summary>
+        /// <param name="str">The string to shorten.</param>
+        /// <param name="length">The length of the start and end portions to preserve.</param>
+        /// <returns>A shortened string.</returns>
+        /// <example>
+        /// Given the string "HelloWorld" and a length of 3, the method would return "Hel..rld".
+        /// </example>
+        public static string ShortenCutMiddle(this string str, int length)
+        {
+            if (string.IsNullOrEmpty(str))
+                return str;
+
+            return str.Length <= length * 2 ? str : $"{str[..length]}..{str[^length..]}";
+        }
+
+        public static string ShortenToLength(this string text, int length)
+        {
+            if (text != null && text.Length > length)
+            {
+                return $"{new string(text.Take(length - 3).ToArray())}...";
+            }
+            else
+                return text;
+        }
+
         public static void Println(this string str)
         {
             System.Console.WriteLine(str);

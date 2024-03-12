@@ -63,6 +63,8 @@ ExtensionMethods - collection of useful C# collection methods
   * <b>IsNotEmpty</b> Instead of !string.IsNullOrEmpty(str) just do str.IsNotEmpty()
   * <b>IsNotNullOrWhiteSpace</b> Instead of !string.IsNullOrWhiteSpace(str) just do str.IsNotEmptyOrWhiteSpace()
   * <b>Substring2</b> Substring without crashing when not long enough
+  * <b>ShortenCutMiddle</b> Shorten the string to beginning..end
+  * <b>ShortenToLength</b> Shorten the string to length and add "..."
 
 
 *DirectoryInfoExtensions*
