@@ -12,6 +12,22 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ExtensionMethods
 {
+    public static class LinqExtensios
+    {
+        /// <summary>
+        /// Sum for ulong
+        /// </summary>
+        public static ulong Sum<TSource>(this IEnumerable<TSource> source, Func<TSource, ulong> summer)
+        {
+            ulong total = 0;
+    
+            foreach (var item in source)
+                total += summer(item);
+    
+            return total;
+        }
+    }
+
     public static class NullableDateTimeExtensions
     {
         /// <summary>
